@@ -5,6 +5,16 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Countries project</title>
+    <style>
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body class="flex h-dvh items-center justify-center bg-gray-50">
     <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
@@ -43,7 +53,16 @@
         </div>
       </form>
       <!-- Results list -->
-      <ul id="results" class="divide-y divide-gray-100"></ul>
+
+      <ul
+        id="results"
+        class="max-h-[300px] divide-y divide-gray-100 overflow-y-auto"
+      >
+        <li
+          id="loadSpiner"
+          class="mx-auto hidden h-8 w-8 animate-[rotation_1s_linear_infinite] rounded-full border-t-2 border-r-2 border-t-gray-500 border-r-transparent"
+        ></li>
+      </ul>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

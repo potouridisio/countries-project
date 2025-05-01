@@ -200,7 +200,7 @@ async function searchByCountryName(name: string): Promise<Country[]> {
 }
 
 const search = document.getElementById("search");
-
+const loader = document.getElementById("loadSpiner");
 if (search) {
   async function handleInput(event: Event) {
     const countries = await searchByCountryName(
