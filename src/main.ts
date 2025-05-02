@@ -194,19 +194,25 @@ interface Country {
 }
 
 async function searchByCountryName(name: string): Promise<Country[]> {
+  showSpinner();
   const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);
   const json = await response.json();
-  return json;
+  hideSpinner();
+  return json.slice(0, 5);
 }
 
 const search = document.getElementById("search");
 
 if (search) {
   async function handleInput(event: Event) {
-    const countries = await searchByCountryName(
-      (event.target as HTMLInputElement).value,
-    );
-    renderCountries(countries);
+    // console.log((search as HTMLInputElement).value.length);
+
+    if ((search as HTMLInputElement).value.length >= 3) {
+      const countries = await searchByCountryName(
+        (event.target as HTMLInputElement).value,
+      );
+      renderCountries(countries);
+    }
   }
 
   const debouncedHandleInput = _.debounce(handleInput, 1000);
@@ -233,5 +239,22 @@ function renderCountries(countries: Country[]) {
       `;
       results.appendChild(result);
     }
+  }
+}
+
+const spinner = document.getElementById("spinner");
+const searchIconEl = document.getElementById("searchIcon");
+
+function showSpinner() {
+  if (spinner && searchIconEl) {
+    spinner.style.visibility = "visible";
+    searchIconEl.style.visibility = "hidden";
+  }
+}
+
+function hideSpinner() {
+  if (spinner && searchIconEl) {
+    spinner.style.visibility = "hidden";
+    searchIconEl.style.visibility = "visible";
   }
 }
