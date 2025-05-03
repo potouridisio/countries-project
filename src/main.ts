@@ -201,11 +201,22 @@ async function searchByCountryName(name: string): Promise<Country[]> {
 
 const search = document.getElementById("search");
 const loader = document.getElementById("loadSpiner");
+
+function showLoader() {
+  loader?.classList.remove("hidden");
+}
+
+function hideLoader() {
+  loader?.classList.add("hidden");
+}
+
 if (search) {
+  search.addEventListener("input", showLoader);
   async function handleInput(event: Event) {
     const countries = await searchByCountryName(
       (event.target as HTMLInputElement).value,
     );
+    hideLoader();
     renderCountries(countries);
   }
 
