@@ -210,8 +210,25 @@ function hideLoader() {
   loader?.classList.add("hidden");
 }
 
+function clearResults() {
+  const results = document.getElementById("results");
+  if (results) {
+    results.innerHTML = "";
+  }
+}
+
 if (search) {
-  search.addEventListener("input", showLoader);
+  search.addEventListener("input", () => {
+    const value = (search as HTMLInputElement).value.trim();
+
+    if (value === "") {
+      clearResults();
+      hideLoader();
+    } else {
+      clearResults();
+      showLoader();
+    }
+  });
   async function handleInput(event: Event) {
     const countries = await searchByCountryName(
       (event.target as HTMLInputElement).value,
