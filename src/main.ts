@@ -200,12 +200,40 @@ async function searchByCountryName(name: string): Promise<Country[]> {
 }
 
 const search = document.getElementById("search");
+const loader = document.getElementById("loadSpiner");
+
+function showLoader() {
+  loader?.classList.remove("hidden");
+}
+
+function hideLoader() {
+  loader?.classList.add("hidden");
+}
+
+function clearResults() {
+  const results = document.getElementById("results");
+  if (results) {
+    results.innerHTML = "";
+  }
+}
 
 if (search) {
+  search.addEventListener("input", () => {
+    const value = (search as HTMLInputElement).value.trim();
+
+    if (value === "") {
+      clearResults();
+      hideLoader();
+    } else {
+      clearResults();
+      showLoader();
+    }
+  });
   async function handleInput(event: Event) {
     const countries = await searchByCountryName(
       (event.target as HTMLInputElement).value,
     );
+    hideLoader();
     renderCountries(countries);
   }
 

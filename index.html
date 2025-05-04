@@ -5,9 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Countries project</title>
+    <style>
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body class="flex h-dvh items-center justify-center bg-gray-50">
-    <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+    <div class="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
       <form>
         <div class="mb-4">
           <label
@@ -26,24 +36,34 @@
             <!-- TODO: display a spinner while searching (request is pending) -->
             <!-- TODO: type g and go figure a fix -->
             <svg
-              class="absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400"
+              class="absolute top-1/2 right-3 h-6 w-6 -translate-y-1/2 text-gray-400"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              stroke-width="2"
             >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1116.65 16.65z"
+                d="M21 21l-6-6m0 0a7 7 0 10-9.9-9.9 7 7 0 009.9 9.9z"
               />
             </svg>
           </div>
         </div>
       </form>
       <!-- Results list -->
-      <ul id="results" class="divide-y divide-gray-100"></ul>
+
+      <ul
+        id="results"
+        class="absolute left-0 z-10 mt-1 max-h-[300px] w-full divide-y divide-gray-100 overflow-y-auto bg-white px-6 shadow-md"
+      ></ul>
+      <div class="mt-4 flex h-4 items-center justify-center">
+        <div
+          id="loadSpiner"
+          class="hidden h-7 w-7 animate-[rotation_1s_linear_infinite] rounded-full border-t-2 border-r-2 border-t-gray-500 border-r-transparent"
+        ></div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
